@@ -1,0 +1,12 @@
+//--------------------------------------------------------------------------------------------
+//TASK 1: Write and test a query that selects all Accounts and their related Contacts.
+//        The query should select the Name field from Account as well as the LastName
+//        field of the related Contact record.
+//--------------------------------------------------------------------------------------------
+SELECT Name, (SELECT LastName FROM Contacts) FROM Account
+
+//--------------------------------------------------------------------------------------------
+//TASK 2: Write and test a query that selects only Certifications that have related Courses.
+//        The query should select the Name fields from Certification__c and Course__c.
+//--------------------------------------------------------------------------------------------
+SELECT Name, (SELECT Name FROM Courses__r) FROM Certification__c WHERE Id IN (SELECT Certification__c from Course__c)

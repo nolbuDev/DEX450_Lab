@@ -1,0 +1,76 @@
+<!-- Notice that the page is bound to the Course__c object using the standardController attribute -->
+<!-- TODO #1:  In the apex:page component add a renderAs attribute and assign it the value "pdf" -->
+<apex:page standardController="Course__c" showHeader="false" applyHtmlTag="false" renderAs="pdf">
+
+    <head>
+      <style>
+        @page {
+          size:landscape;
+          margin:0;
+          border: 2px solid blue;
+        }
+        .certText {
+          font-style: italic;
+          font-size: 34px;
+          line-height: 200px;
+          position: relative;
+        }
+        .signatureLine {
+          margin:100px;
+          font-style: italic;
+          font-size: 18px;
+          position: relative;
+        }
+        .dateLine {
+          top: 20px;
+          margin:100px;
+          font-style: italic;
+          font-size: 18px;
+          position: relative;
+        }
+      </style>
+    </head>
+
+    <apex:variable var="longLine" value="_____________________________________________________" />
+    <apex:variable var="shortLine" value="______________________________________" />
+
+    <apex:outputPanel layout="block" style="text-align: center;">
+        <div>
+            <!-- TODO #2: Create an apex:image component with an attribute named alt that has the value
+                          "Course Completion Certificate" and an attribute named url that
+                          is dynamically bound to the static Resource named CourseCertificateImage  -->
+            <apex:image alt="Course Completion Certificate" url="{!$Resource.CourseCertificateImage}"/>
+        </div>
+        <div>
+            <apex:outputText styleClass="certText" value="Presented to" />
+        </div>
+        <div>
+            <apex:outputText value="{!longLine}" />
+        </div>
+        <div>
+            <apex:outputText styleClass="certText" value="For Completion of " />
+            <!-- TODO #3: Create an apex:outputText component with an attribute named styleClass that has
+                          the value "certText" and an attribute named value that is dynamically bound to the
+                          name field of the Course__c sObject  -->
+            <apex:outputText styleClass="certText" value="{! Course__c.Name}" />
+        </div>
+    </apex:outputPanel>
+
+    <apex:outputPanel layout="block">
+        <div>
+            <apex:outputText styleclass="signatureLine" value="{!shortLine}" />
+        </div>
+        <div>
+            <!-- TODO #4:  In the output component add an attribute named value and assign it the value "Instructor"-->
+            <apex:outputText styleclass="signatureLine" value="Instructor" />
+        </div>
+        <div>
+            <apex:outputText styleclass="dateLine" value="{!shortLine}" />
+        </div>
+        <div>
+            <!-- TODO #5: In the outputText component add a value attribute and assign it the value "Date"-->
+            <apex:outputText styleclass="dateLine" value="Date" />
+        </div>
+    </apex:outputPanel>
+
+</apex:page>

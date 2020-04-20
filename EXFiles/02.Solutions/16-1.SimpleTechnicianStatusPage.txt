@@ -1,0 +1,27 @@
+<apex:page standardController="Contact" lightningStylesheets="true">
+    <!-- Technician Info  -->
+    <!-- TODO #1: Create an apex:detail component with an attribute named relatedList that has the value "false". -->
+    <apex:detail relatedList="false"/>
+
+    <!-- Course Listing  -->
+    <apex:pageBlock Title="Course Listing">
+        <!-- TODO #2: In the pageBlockTable component add a value attribute that is dynamically bound to the
+                      Course_Attendees__r field of the Contact sObject. Also, add a var attribute and assign
+                      it the value "ca" -->
+        <apex:pageBlockTable id="courseList" value="{!Contact.Course_Attendees__r}" var="ca">
+            <!-- TODO #3: In the column component add an attribute named value that is dynamically bound to the
+                          Start_Date__c field for the Course_Delivery__r related sObject. -->
+            <apex:column value="{!ca.Course_Delivery__r.Start_Date__c}" />
+            <!-- TODO #4: In the column component add an attribute named value that is dynamically bound to the
+                          Name field for the Course_Delivery__r -> Instructor__r related sObjects. -->
+            <apex:column value="{!ca.Course_Delivery__r.Instructor__r.Name}" />
+            <!-- TODO #5: In the column component add an attribute named value that is dynamically bound to the
+                          Name field for the Course_Delivery__r -> Course__r _> Certification__r related sObjects. -->
+            <apex:column value="{!ca.Course_Delivery__r.Course__r.Certification__r.Name}" />
+            <!-- TODO #6: In the column component add an attribute named value that is dynamically bound to the
+                          Certification_Description__c field for the Course_Delivery__r -> Course__r _> Certification__r
+                          related sObjects. -->
+            <apex:column value="{!ca.Course_Delivery__r.Course__r.Certification__r.Certification_Description__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

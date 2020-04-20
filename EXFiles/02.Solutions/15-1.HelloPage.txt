@@ -1,0 +1,9 @@
+<!-- Task 1 -->
+<apex:page>
+  <b>Hello {!$User.FirstName}</b>
+</apex:page>
+
+<!-- Task 2 -->
+<apex:page>
+<b>Hello {!$User.firstName}</b>
+</apex:page>

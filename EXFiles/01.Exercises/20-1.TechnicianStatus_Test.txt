@@ -1,0 +1,80 @@
+@isTest
+private class TechnicianStatus_Test {
+
+    /** The code in this class is used to test code
+     *  for the TechnicianStatusExtended VF page
+     */
+
+    @testSetup static void setupData(){
+
+        /** The code in this section will create test records only once
+         *  The test data can then be used by multiple test methods in
+         *  this test class
+         */
+
+        List<Account> testAccounts = LoadDataTestFactory.loadAccounts();
+        List<Contact> testContacts = LoadDataTestFactory.loadContacts();
+        List<Certification__c> testCerts = LoadDataTestFactory.loadCertifications();
+        List<Course__c> testCourses = LoadDataTestFactory.loadCourses();
+        List<User> testUsers = LoadDataTestFactory.createUsers();
+        List<Course_Delivery__c> testCourseDeliveries = LoadDataTestFactory.loadCourseDeliveries();
+        List<Course_Attendee__c> testCourseAttendes = LoadDataTestFactory.loadCourseAttendees();
+    }
+
+    @isTest
+    static void testExtensionConstructor() {
+
+        /** TODO #1: Declare a variable of type PageReference named pageRef
+         *  and assign it the value of Page.TechnicianStatusPage
+         */
+
+
+        // TODO #2: Call the method setCurrentPage of the Test class 
+		//	and pass in the pageRef variable
+
+
+        // Get Technician Record Type
+        Id techRecId = Schema.SObjectType.Contact.getRecordTypeInfosByName().get('Technician').getRecordTypeId();
+
+        /** TODO #3: Declare a variable whose type is a list of Contact sObjects 
+         *  named students and assign the variable the value of a SOQL query that:
+         *   -- Selects the Id and Name fields
+         *   -- From the Contact sObject
+         *   -- Where the value of the Status__c field equals 'Active' and
+         *      the RecordTypeId equals the dynamically bound techRecId variable
+         *   -- Limit the results returned to one record
+         */
+
+
+        /** TODO #4: Declare a variable whose type is a Contact named student
+         *  and assign it the zero position for the variable list named students.
+         */
+
+
+        // TODO #5: Call the method startTest of the Test class
+
+
+        /** TODO #6: Declare a variable whose type is ApexPages.StandardController
+         *  named sController & initialize it as a newly constructed ApexPages.StandardController
+         *  instance passing in the student variable as the constructor parameter.
+         */
+
+
+        /** TODO #7: Declare a variable whose type is TechnicianStatus_CX named
+         *  controllerExt and initialize it as a newly constructed TechnicianStatus_CX
+         *  instance passing in the sController variable as the constructor parameter.
+         */
+
+
+        // TODO #8: Call the method stopTest of the Test class
+
+
+        /** TODO #9: Call the assertNotEquals method of the System class with
+         *  the following two parameters:
+         *  -- null
+         *  -- the controllerExt variable
+         */
+
+
+    }
+}

@@ -1,0 +1,57 @@
+<apex:page standardController="Contact" lightningStylesheets="true">
+    <apex:form id="theForm">
+        <!-- TODO #1: Create an apex:includeScript component with an attribute named
+                      value that is dynamically bound to the CustomCancelButton Static Resource -->
+        <apex:includeScript value="{!$Resource.CustomCancelButton}" />
+
+        <apex:pageBlock Title="Technician Status">
+            <!-- Technician Info  -->
+            <apex:pageBlockButtons >
+                <!-- Note, the use of the rerender attribute here is technically just a workaround
+                     for known issue https://success.salesforce.com/issues_view?id=a1p3A0000001BZLQA2 -->
+                <apex:commandButton value="Edit Technician Record" action="{!edit}" rerender="theForm"/>
+                <!-- TODO #2: Create an apex:commandButton component with an attribute named value
+                              that has the value "Cancel" and an attribute named onclick that has
+                              the value "return confirmCancel()" and an attribute named action
+                              that is dynamically bound to the cancel method -->
+                <apex:commandButton action="{!cancel}" value="Cancel" onclick="return confirmCancel()"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection >
+                <apex:outputField value="{!Contact.Name}" label="Technician Name"/>
+                <apex:outputField value="{!Contact.Email}" label="Email"/>
+                <apex:outputField value="{!Contact.Phone}" label="Phone"/>
+                <apex:outputField value="{!Contact.Account.Name}" label="Account"/>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+
+        <!-- Course Listing -->
+        <apex:pageBlock Title="Course Listing">
+            <apex:pageBlockTable id="courseList" value="{!Contact.Course_Attendees__r}" var="ca">
+                <apex:column headerValue="Date">
+                    <apex:outputLink value="{!URLFOR($Action.Course_Attendee__c.View, ca.id)}">
+                        <apex:outputField value="{!ca.Course_Delivery__r.Start_Date__c}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Instructor Name" value="{!ca.Course_Delivery__r.Instructor__r.Name}" />
+                <apex:column headerValue="Certification Name" value="{!ca.Course_Delivery__r.Course__r.Certification__r.Name}"/>
+                <apex:column headerValue="Certification Description" value="{!ca.Course_Delivery__r.Course__r.Certification__r.Certification_Description__c}" />
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+
+        <!-- Certification Listing -->
+        <apex:pageBlock Title="Certifications Held">
+            <apex:pageBlockTable id="certList" value="{!Contact.Certifications_Held__r}" var="ch">
+                <apex:column headerValue="Date Achieved">
+                    <apex:outputLink value="{!URLFOR($Action.Certification_Held__c.View, ch.id)}">
+                        <apex:outputField value="{!ch.Date_Achieved__c}"/>
+                    </apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Certification Name" value="{!ch.Certification__r.Name}" />
+                <apex:column headerValue="Certification Description" value="{!ch.Certification__r.Certification_Description__c}" />
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+    </apex:form>
+</apex:page>

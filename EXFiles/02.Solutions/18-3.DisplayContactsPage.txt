@@ -1,0 +1,39 @@
+<apex:page controller="DisplayContacts_CC" tabStyle="Contact" lightningStylesheets="true">
+    <apex:form >
+        <apex:pageBlock id="contactList" title="Search Contacts">
+            <apex:panelGrid cellspacing="4" columns="6" style="line-height:2.2em" >
+                <apex:outputText >Search Text:</apex:outputText>
+                <apex:panelGroup style="padding-right:1em">
+                    <!-- TODO #3: Create an apex:inputText component with an attribute named style
+                                  that has the value "vertical-align:middle;" and an attribute named
+                                  id that has the value "searchText" and an attribute named value
+                                  that is dynamically bound to the searchText property -->
+                    <apex:inputText style="vertical-align:middle;" id="searchText" value="{!searchText}"/>
+                    <apex:commandButton status="notifyUser" reRender="contactList" value="Search" action="{!Search}" />
+                </apex:panelGroup>
+                <apex:commandButton status="notifyUser" reRender="contactList" value="|<" title="First" action="{!setCon.first}" disabled="{!NOT(setCon.hasPrevious)}" styleClass="btn" />
+                <apex:commandButton status="notifyUser" reRender="contactList" value="<" title="Previous" action="{!setCon.previous}" disabled="{!NOT(setCon.hasPrevious)}" styleClass="btn" />
+                <apex:commandButton status="notifyUser" reRender="contactList" value=">" title="Next" action="{!setCon.next}" disabled="{!NOT(setCon.hasNext)}" styleClass="btn" />
+                <apex:commandButton status="notifyUser" reRender="contactList" value=">|" title="Last" action="{!setCon.last}" disabled="{!NOT(setCon.hasNext)}" styleClass="btn" />
+                <apex:actionStatus id="notifyUser" startText="Searching..." stopText=" "></apex:actionStatus>
+            </apex:panelGrid>
+            <apex:pageMessages />
+            <!-- TODO #4: In the pageBlockTable component, add an attribute named var that has the value "con"
+                          and  an attribute named value that is dynamically bound to to contacts property -->
+            <apex:pageBlockTable var="con" value="{!contacts}" >
+                <!-- TODO #5: Create an apex:column component with an attribute named headerValue that has the
+                              value "Name". Within the starting and closing tags for the column component:
+                                -- create an apex:outputLink component with an attribute named value that is dynamically bound
+                                   to the id field. Be sure to prepend a forward slash for this value. Within the starting
+                                   and ending tags for the outputLink component reference the dynamically bound Name for the contact -->
+                <apex:column headerValue="Name">
+                  <apex:outputLink value="/{!con.id}">{!con.Name}</apex:outputLink>
+                </apex:column>
+                <apex:column value="{!con.Account.Name}"/>
+                <apex:column value="{!con.Phone}"/>
+                <apex:column value="{!con.Email}"/>
+            </apex:pageBlockTable>
+            <apex:outputText value="No contacts found matching criteria" rendered="{!AND(NOT(matches), searched)}" />
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

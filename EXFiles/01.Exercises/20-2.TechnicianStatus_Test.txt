@@ -1,0 +1,127 @@
+@isTest
+private class TechnicianStatus_Test {
+
+    /** The code in this class is used to test code
+     *  for the TechnicianStatus VF page
+     */
+
+    @testSetup
+    static void setupData(){
+
+        /** The code in this section will create test records only once
+         *  The test data can then be used by multiple test methods in
+         *  this test class
+         */
+
+        List<Account> testAccounts = LoadDataTestFactory.loadAccounts();
+        List<Contact> testContacts = LoadDataTestFactory.loadContacts();
+        List<Certification__c> testCerts = LoadDataTestFactory.loadCertifications();
+        List<Course__c> testCourses = LoadDataTestFactory.loadCourses();
+        List<User> testUsers = LoadDataTestFactory.createUsers();
+        List<Course_Delivery__c> testCourseDeliveries = LoadDataTestFactory.loadCourseDeliveries();
+        List<Course_Attendee__c> testCourseAttendes = LoadDataTestFactory.loadCourseAttendees();
+    }
+
+    static Contact getTechnician(){
+        // Get Technician Record Type
+        Id techRecId = Schema.SObjectType.Contact.getRecordTypeInfosByDeveloperName().get('Technician').getRecordTypeId();
+
+        // Get first Technician Student that is Active
+        Contact[] students = [SELECT Id, Name FROM Contact WHERE Status__c = 'Active' AND RecordTypeId = :techRecId LIMIT 1];
+        return students[0];
+    }
+
+    @isTest
+    static void testEditTechnician2() {
+
+        // Set Reference to the TechnicianStatusPage page and set the current page
+        PageReference pageRef = Page.TechnicianStatusPage;
+        Test.setCurrentPage(pageRef);
+
+        Contact student = getTechnician();
+
+        Test.startTest();
+
+        // Instantiate the standard controller with the contact, along with the Extension Controller
+        ApexPages.StandardController sController = new ApexPages.StandardController(student);
+        TechnicianStatus_CX controllerExt = new TechnicianStatus_CX(sController);
+
+        /** TODO #1: Declare a variable whose type is PageReference named contactPage
+         *  and assign it to the result of calling the editContact2 method of the
+         *  controllerExt variable.
+         */
+
+
+        Test.stopTest();
+
+        /** TODO #2: Check that the page was redirected to the Contact Edit page by
+         *  1) Declaring a variable of type String named urlID and assigning it
+         *     the value returned by calling the getUrl() method of the PageReference class
+         *     and appending another call to the mid method of the String class which accepts
+         *     two arguments: 1 and 15.
+         *  2) Declare a variable of type String named studentId and assign it
+         *     the value returned by calling the valueOf method of the String class,
+         *     passing in student.Id as a parameter and appending another call
+         *     to the mid method which accepts two arguments: 0 and 15
+         *  3) Call the assertEquals method of the System class with
+         *     the following two parameters:
+         *     -- the studentId variable
+         *     -- urlId
+         */
+
+
+    }
+
+    @isTest
+    static void testEditTechnician3() {
+
+        // Set Reference to the TechnicianStatusPage page
+        PageReference pageRef = Page.TechnicianStatusPage;
+        Test.setCurrentPage(pageRef);
+
+        Contact student = getTechnician();
+
+        Test.startTest();
+
+        // Instantiate the standard controller with the contact, along with the Extension Controller
+        ApexPages.StandardController sController = new ApexPages.StandardController(student);
+        TechnicianStatus_CX controllerExt = new TechnicianStatus_CX(sController);
+
+        /** TODO #3: Declare a variable whose type is PageReference named 
+         *  contactPage and assign it the result of calling the editContact3
+         *  method of the of the controllerExt variable.
+         */
+
+
+        Test.stopTest();
+
+        // Check that the page was redirected to the Contact Edit page
+        // by checking to see that the url contains the 15 character ID
+        // of the Student that was used for the test
+        String urlId = contactPage.getUrl().mid(1, 15);
+        String studentId = String.valueOf(student.Id).mid(0, 15);
+        System.assertEquals(studentId, urlId);
+
+    }
+
+    @isTest
+    static void testExtensionConstructor() {
+
+        PageReference pageRef = Page.TechnicianStatusPage;
+        Test.setCurrentPage(pageRef);
+
+        Contact student = getTechnician();
+
+        Test.startTest();
+
+        // Instantiate the standard controller with the contact, along with the Extension Controller
+        ApexPages.StandardController sController = new ApexPages.StandardController(student);
+        TechnicianStatus_CX controllerExt = new TechnicianStatus_CX(sController);
+
+        Test.stopTest();
+
+        // Check that the controller extension is not equal to null
+        System.assertNotEquals(controllerExt, null);
+
+    }
+}

@@ -1,0 +1,28 @@
+//--------------------------------------------------------------------------------------------
+//TASK 1b: Write and test a query that selects the Name field as well as the Name
+//         field of the Parent account record for all Contacts.
+//         Note this code is only runnable in the Query Editor of the Developer Console.
+//--------------------------------------------------------------------------------------------
+SELECT Name, Account.Name FROM Contact
+
+//--------------------------------------------------------------------------------------------
+//TASK 1d: Create a for loop with an iterator of type List whose elements are of
+//         class Contact named contacts that iterates over the SOQL query you completed earlier.
+//         Within the SOQL loop create a second for loop with an iterator of type Contact named aContact
+//         that iterates over the outer loop's contacts variable.  Within the inner loop use a System.debug
+//         to output the information you have retrieved.
+//Example of output: "Contact: Erica Neumann is related to the following Account: Initron Corporation"
+//--------------------------------------------------------------------------------------------
+for (List<Contact> contacts: [SELECT Name, Account.Name FROM Contact]) {
+    for(Contact aContact : contacts) {
+        System.debug('Contact: ' + aContact.Name    + ' is related to the following Account: '
+                        + aContact.Account.Name);
+    }
+}
+
+//--------------------------------------------------------------------------------------------
+//TASK 2b: Write and test a query that selects the Name field and the related certification Name field
+//         from Courses where the Course has a related Certification.
+//         Note this code is only runnable in the Query Editor of the Developer Console.
+//--------------------------------------------------------------------------------------------
+SELECT Name, Certification__r.Name FROM Course__c  WHERE Certification__c <> NULL

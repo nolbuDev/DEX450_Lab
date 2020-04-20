@@ -1,0 +1,20 @@
+<!-- TODO #1: In the page component add a standardController attribute and assign it the value
+              "Account". Also add an extensions attribute and assign it the value "AccountDisplayCertsHeld_CX".
+              Also add a lightningStylesheets attribute and assign it the value "true". -->
+<apex:page standardController="Account" extensions="AccountDisplayCertsHeld_CX" lightningStylesheets="true">
+    <apex:pageBlock >
+
+        <!-- TODO #2: Create an apex:pageBlockTable component with an attribute named value that is
+                      dynamically bound to the results property. Also add a var attribute that is assigned
+                      the value "cert". -->
+        <apex:pageBlockTable var="cert" value="{!results}" >
+            <!-- TODO #3: Create three apex:column components each with an attribute named value.
+                          Using dynamic binding with the value attribute, make the columns display
+                          the Name of the Certification, the Name associated with the Certified_Professional__r
+                          related sObject and the Date_Achieved__c (in that order) -->
+            <apex:column value="{!cert.Name}" />
+            <apex:column value="{!cert.Certified_Professional__r.Name}" />
+            <apex:column value="{!cert.Date_Achieved__c}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

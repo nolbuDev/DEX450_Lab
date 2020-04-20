@@ -1,0 +1,16 @@
+<!-- TODO #3: In the page component add a standardController attribute that has the
+              value "Account" and an extensions attribute that has the value "AccountDisplayCertAttempts_CX"
+              Also add a lightningStylesheets attribute and assign it the value "true". -->
+<apex:page standardController="Account" extensions="AccountDisplayCertAttempts_CX" lightningStylesheets="true">
+    <apex:pageBlock >
+
+    <!-- TODO #4: In the pageBlockTable component add a value attribute that is
+                  dynamically bound to the results variable and a var attribute
+                  that has the value "attempt"   -->
+        <apex:pageBlockTable var="attempt" value="{!results}" >
+            <apex:column value="{!attempt.Name}" />
+            <apex:column value="{!attempt.Certification_Candidate__r.Name}" />
+            <apex:column value="{!attempt.Certification_Element__r.Name}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

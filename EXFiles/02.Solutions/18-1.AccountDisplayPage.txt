@@ -1,0 +1,85 @@
+<!-- TODO #1: In the page component, add an attribute named standardController that has the value "Account"
+              and an attribute named recordSetVar that has the value "accounts"
+              and an attribute named lightningStylesheets that has the value "true" -->
+<apex:page standardController="Account" recordSetVar="accounts" lightningStylesheets="true">
+    <apex:form >
+
+        <apex:pageBlock id="accountList" title="Accounts">
+            <apex:pageMessages />
+
+            <apex:pageBlockButtons >
+                <!-- TODO #2: Create an apex:commandButton component with these attributes:
+                                -- Name: value    | value: "|<"
+                                -- Name: title    | value: "First"
+                                -- Name: action   | value: dynamically bound to the "first" method
+                                -- Name: disabled | value: dynamically bound to the "hasPrevious" method,
+                                                           which returns a Boolean value. Use the NOT() formula
+                                                           operator to return the inverse value returned from
+                                                           this method -->
+                <apex:commandButton value="|<" title="First" action="{!first}" disabled="{!NOT(hasPrevious)}" />
+                <!-- TODO #3: Create an apex:commandButton component with these attributes:
+                                -- Name: value    | value: "<"
+                                -- Name: title    | value: "Previous"
+                                -- Name: action   | value: dynamically bound to the "previous" method
+                                -- Name: disabled | value: dynamically bound to the "hasPrevious" method,
+                                                           which returns a Boolean value. Use the NOT() formula
+                                                           operator to indicate that we want to get the inverse
+                                                           value returned from this method -->
+                <apex:commandButton value="<" title="Previous" action="{!previous}" disabled="{!NOT(hasPrevious)}" />
+                <!-- TODO #4: Create an apex:commandButton component with these attributes:
+                                -- Name: value    | value: ">"
+                                -- Name: title    | value: "Next"
+                                -- Name: action   | value: dynamically bound to the "next" method
+                                -- Name: disabled | value: dynamically bound to the "hasNext" method,
+                                                           which returns a Boolean value. Use the NOT() formula
+                                                           operator to indicate that we want to get the inverse
+                                                           value returned from this method -->
+                <apex:commandButton value=">" title="Next" action="{!next}" disabled="{!NOT(hasNext)}" />
+                <!-- TODO #5: Create an apex:commandButton component with these attributes:
+                                -- Name: value    | value: ">|"
+                                -- Name: title    | value: "Last"
+                                -- Name: action   | value: dynamically bound to the "last" method
+                                -- Name: disabled | value: dynamically bound to the "hasNext" method,
+                                                           which returns a Boolean value. Use the NOT() formula
+                                                           operator to indicate that we want to get the inverse
+                                                           value returned from this method -->
+                <apex:commandButton value=">|" title="Last" action="{!last}" disabled="{!NOT(hasNext)}" />
+                <apex:outputText >
+                      {!(pageNumber * pageSize) + 1 - pageSize}
+                      through
+                      {!IF((pageNumber * pageSize) > resultSize, resultSize, (pageNumber * pageSize))}
+                      of {!resultSize} records
+                </apex:outputText>
+            </apex:pageBlockButtons>
+            <apex:panelGrid columns="4" >
+                Filter by:
+                <!-- TODO #6: Create an apex:selectList component with an attribute named value that is
+                              dynamically bound to filterId and an attribute named size that has the
+                              value "1" -->
+                <apex:selectList value="{!filterId}" size="1">
+                    <!-- TODO #7: Within the beginning and ending tags of the selectList component,
+                                  add the following two nested components:
+                                     -- an apex:selectOptions component with an attribute named value that
+                                        is dynamically bound to listViewOptions
+                                     -- an apex:actionSupport component with an attribute named event that
+                                        has the value "onchange" and an attribute named reRender that has
+                                        the value "accountList" and an attribute named status that has the value
+                                        "notifyUser" -->
+                    <apex:selectOptions value="{!listViewOptions}"/>
+                    <apex:actionSupport event="onchange" reRender="accountList" status="notifyUser" />
+                </apex:selectList>
+                <apex:actionStatus id="notifyUser" startText="Working..." stopText=" "></apex:actionStatus>
+            </apex:panelGrid>
+            <!-- TODO #8: In the pageBlockTable component add an attribute named var that has the value "acct"
+                          and an attribute named value that is dynamically bound to accounts. -->
+            <apex:pageBlockTable var="acct" value="{!accounts}" >
+                <apex:column value="{!acct.Name}"/>
+                <apex:column value="{!acct.Phone}"/>
+                <apex:column value="{!acct.Industry}"/>
+                <apex:column value="{!acct.Website}"/>
+                <apex:column value="{!acct.Support_Level__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+
+    </apex:form>
+</apex:page>
