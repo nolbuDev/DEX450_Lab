@@ -20,6 +20,9 @@ public without sharing class LoadCertificationData {
 		// Load the Certification Elements records
 		Map<String, Certification_Element__c> elements = CertificationElementsData.loadTheData(certs);
 
+		// Load the Certification Attempts records
+		Map<String, Certification_Attempt__c> attempts = CertificationAttemptsData.loadTheData(contacts, elements);
+
 		// Load the Course records
 		Map<String, Course__c> courses = CoursesData.loadTheData(certs);
 
@@ -44,6 +47,7 @@ public without sharing class LoadCertificationData {
 		delete [SELECT Id FROM Course_Delivery__c];
 		delete [SELECT Id FROM Course__c];
 		delete [SELECT Id FROM Certification_Element__c];
+		delete [SELECT Id FROM Certification_Attempt__c];
 		delete [SELECT Id FROM Certification__c];
 		delete [SELECT Id FROM Contact];
 		delete [SELECT Id FROM Account];
