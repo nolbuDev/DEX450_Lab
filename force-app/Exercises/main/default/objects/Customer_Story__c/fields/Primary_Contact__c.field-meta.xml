@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Contact__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The Primary Contact of the Account whose success story this is.</description>
+    <externalId>false</externalId>
+    <label>Primary Contact</label>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Customer Stories</relationshipLabel>
+    <relationshipName>Customer_Stories</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

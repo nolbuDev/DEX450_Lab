@@ -35,6 +35,10 @@
                 <behavior>Edit</behavior>
                 <field>Country__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>End_Date__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
